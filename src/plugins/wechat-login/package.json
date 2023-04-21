@@ -12,7 +12,9 @@
     "@strapi/helper-plugin": "^4.6.0",
     "@strapi/icons": "^1.6.3",
     "crypto": "^1.0.1",
-    "prop-types": "^15.7.2"
+    "https-proxy-agent": "^5.0.1",
+    "prop-types": "^15.7.2",
+    "querystring": "^0.2.1"
   },
   "devDependencies": {
     "@strapi/typescript-utils": "^4.6.0",
