@@ -1,7 +1,7 @@
 module.exports = {
   // ...
   'wechat-login': {
-    enabled: true,
+    enabled: false,
     resolve: './src/plugins/wechat-login'
   },
   // ...
