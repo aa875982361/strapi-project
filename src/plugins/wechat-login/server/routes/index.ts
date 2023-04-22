@@ -63,4 +63,13 @@ export default [
       auth: false,
     },
   },
+  {
+    method: 'GET',
+    path: '/auth/scene',
+    handler: 'wechatController.checkScene',
+    config: {
+      policies: [],
+      auth: false,
+    },
+  },
 ];

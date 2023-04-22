@@ -107,5 +107,15 @@ export default ({ strapi }: { strapi: Strapi }) => ({
       .service('wechatService')
       .handleWechatMessage(xmlData?.xml)
     // ctx.body = "success"
+  },
+  // 检查scene 是否登录成功
+  async checkScene(ctx){
+    const { scene } = ctx.request.query
+    console.log("scene", scene);
+    ctx.body = await strapi
+      .plugin('wechat-login')
+      .service('wechatService')
+      .checkScene(scene)
+
   }
 });

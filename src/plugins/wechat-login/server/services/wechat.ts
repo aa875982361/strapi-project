@@ -6,7 +6,7 @@ const querystring = require("querystring");
 import axios from "axios"
 // const httpsProxyAgent = require('https-proxy-agent');
 import { HttpsProxyAgent } from "https-proxy-agent"
-import { generateRandomString, getOnlyOneScene, setSceneToken } from '../utils/sceneManager';
+import { generateRandomString, getOnlyOneScene, getSceneToken, setSceneToken } from '../utils/sceneManager';
 import { request } from './request';
 import { getAccessToken } from './accessToken';
 import { QrCodeBase } from '../utils/url';
@@ -292,6 +292,9 @@ class WechatServices {
     }
     // 如果前面没有返回值 默认返回成功
     return "success"
+  }
+  async checkScene(scene: string): Promise<string>{
+    return getSceneToken(scene)
   }
 }
 
