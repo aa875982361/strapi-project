@@ -1,4 +1,5 @@
 module.exports = ({ env }) => ({
+  // url: "http://www.nisonfuture.cn",
   auth: {
     secret: env('ADMIN_JWT_SECRET'),
   },

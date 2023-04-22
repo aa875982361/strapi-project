@@ -10,11 +10,12 @@
     "strapi": "strapi"
   },
   "dependencies": {
-    "@strapi/plugin-i18n": "4.9.2",
-    "@strapi/plugin-users-permissions": "4.9.2",
-    "@strapi/strapi": "4.9.2",
+    "@strapi/plugin-i18n": "4.7.1",
+    "@strapi/plugin-users-permissions": "4.7.1",
+    "@strapi/strapi": "4.7.1",
     "better-sqlite3": "8.0.1",
-    "strapi-wechat-miniprogram-auth": "^0.0.5"
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   },
   "author": {
     "name": "A Strapi developer"
@@ -26,5 +27,9 @@
     "node": ">=14.19.1 <=18.x.x",
     "npm": ">=6.0.0"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "@types/react": "^18.0.38",
+    "@types/react-dom": "^18.0.11"
+  }
 }

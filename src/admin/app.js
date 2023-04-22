@@ -9,7 +9,7 @@ export default {
         // 这里是刚刚在设置中新建的国际化语言版本的ID
         Id: '2',
       },
-    },
+    }
   },
   bootstrap() {},
 }
