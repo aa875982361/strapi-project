@@ -102,10 +102,10 @@ export default ({ strapi }: { strapi: Strapi }) => ({
     const xmlData = await handleXml2Object(ctx.request.body)
     console.log("xmlData.xml", xmlData?.xml)
 
-    // const res = await strapi
-    //   .plugin('wechat-login')
-    //   .service('wechatService')
-    //   .qrCode()
-    ctx.body = "success"
+    ctx.body = await strapi
+      .plugin('wechat-login')
+      .service('wechatService')
+      .handleWechatMessage(xmlData?.xml)
+    // ctx.body = "success"
   }
 });

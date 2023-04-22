@@ -242,12 +242,33 @@ class WechatServices {
   }
   // 接受微信推送过来的消息
   async handleWechatMessage(data): Promise<string>{
-    const {event = [], eventkey = [], fromusername = [] } = data
-    const eventName = event[0] || ""
-    const userOpenId = fromusername[0] || ""
+    /**
+     * 示例数据格式：
+     * 已关注扫码得到的消息
+     *  {
+          ToUserName: 'gh_00eefa0749a6',
+          FromUserName: 'oPuYn6s3yuFnvmk74ZhYajZyrVCY',
+          CreateTime: '1682171664',
+          MsgType: 'event',
+          Event: 'SCAN',
+          EventKey: 'PCdIGABHQ1LscQsLqL1ryaypsjKvkkIZ',
+          Ticket: 'gQEu8DwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAybjV6Wk1SLUNjREcxaHhzZGhBY2cAAgTh4UNkAwSAOgkA'
+        }
+        未关注扫码得到的消息
+        {
+           ToUserName: 'gh_00eefa0749a6',
+           FromUserName: 'oPuYn6l7-3-UQuqCRUnCPz9RvBYU',
+           CreateTime: '1682172458',
+           MsgType: 'event',
+           Event: 'subscribe',
+           EventKey: 'qrscene_PCdIGABHQ1LscQsLqL1ryaypsjKvkkIZ',
+           Ticket: 'gQEu8DwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAybjV6Wk1SLUNjREcxaHhzZGhBY2cAAgTh4UNkAwSAOgkA'
+        }
+     */
+    const {Event: eventName, EventKey: eventKey = [], FromUserName: userOpenId} = data
     switch(eventName){
       case "SCAN":
-        const scene = eventkey[0] || ""
+        const scene = eventKey || ""
         if(!userOpenId || !scene){
           console.warn("没有用户openid 或者没有scene", userOpenId, scene)
         }else{
@@ -257,7 +278,7 @@ class WechatServices {
         break
       case "subscribe":
         // qrscene_AmQ2SGOMsnpiK7OOeXVOMMC35FxNxfkO
-        const qrSceneStr = eventkey[0] || ""
+        const qrSceneStr = eventKey || ""
         // 如果是扫码关注的场景
         // 需要分割场景值
         const realScene = qrSceneStr.split("_")[1] || ""
