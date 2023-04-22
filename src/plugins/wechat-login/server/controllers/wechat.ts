@@ -97,6 +97,6 @@ export default ({ strapi }: { strapi: Strapi }) => ({
     //   .plugin('wechat-login')
     //   .service('wechatService')
     //   .qrCode()
-    ctx.response.body = "success"
+    ctx.body = "success"
   }
 });
