@@ -286,7 +286,7 @@ class WechatServices {
            Ticket: 'gQEu8DwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAybjV6Wk1SLUNjREcxaHhzZGhBY2cAAgTh4UNkAwSAOgkA'
         }
      */
-    const {Event: eventName, EventKey: eventKey = [], FromUserName: userOpenId} = data
+    const {Event: eventName, EventKey: eventKey , FromUserName: userOpenId} = data
     switch(eventName){
       case "SCAN":
         const scene = eventKey || ""
@@ -294,7 +294,8 @@ class WechatServices {
           console.warn("没有用户openid 或者没有scene", userOpenId, scene)
         }else{
           // 设置场景值对应的openid
-          setSceneToken(scene, userOpenId)
+          const { token } = await this.getUserTokenByOpenId(userOpenId)
+          setSceneToken(scene, token)
         }
         break
       case "subscribe":
