@@ -1,5 +1,6 @@
 import { Strapi } from '@strapi/strapi';
 import { pluginId } from '../pluginId';
+import { handleXml2Object } from '../utils/util';
 
 export interface ISignatureObj {
   signature: string,
@@ -94,6 +95,12 @@ export default ({ strapi }: { strapi: Strapi }) => ({
   async handleWechatMessage(ctx){
     console.log("handleWechatMessage request", ctx.request)
     console.log("body", ctx.request.body);
+    if(!ctx.request.body || typeof ctx.request.body !== "string"){
+      console.warn("handleWechatMessage body not string");
+      return
+    }
+    const xmlData = handleXml2Object(ctx.request.body)
+    console.log("xmlData", xmlData)
 
     // const res = await strapi
     //   .plugin('wechat-login')
