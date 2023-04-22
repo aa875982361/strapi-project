@@ -93,6 +93,8 @@ export default ({ strapi }: { strapi: Strapi }) => ({
   // 接受微信推送的消息
   async handleWechatMessage(ctx){
     console.log("handleWechatMessage request", ctx.request)
+    console.log("body", ctx.request.body);
+
     // const res = await strapi
     //   .plugin('wechat-login')
     //   .service('wechatService')
