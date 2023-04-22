@@ -1,7 +1,7 @@
 export default [
   {
     method: 'GET',
-    path: '/',
+    path: '/wechat',
     handler: 'wechatController.index',
     config: {
       auth: false,
@@ -10,7 +10,7 @@ export default [
   },
   {
     method: 'POST',
-    path: '/',
+    path: '/wechat',
     handler: 'wechatController.handleWechatMessage',
     config: {
       auth: false,
