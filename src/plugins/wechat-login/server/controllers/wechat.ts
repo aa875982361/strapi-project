@@ -81,13 +81,14 @@ export default ({ strapi }: { strapi: Strapi }) => ({
     ctx.response.redirect(`http://www.nisonfuture.cn/main?token=${token}`)
   },
   // pc登录 获取二维码
-  async qrCode(){
+  async qrCode(ctx){
     // 获取到二维码 和 scene
-    const { scene } = await strapi
+    const { scene, qrcodeUrl } = await strapi
       .plugin('wechat-login')
       .service('wechatService')
       .qrCode()
     console.log("qrCode scene ", scene);
+    ctx.body = { scene, qrcodeUrl }
   },
   // 接受微信推送的消息
   async handleWechatMessage(ctx){
@@ -96,6 +97,6 @@ export default ({ strapi }: { strapi: Strapi }) => ({
     //   .plugin('wechat-login')
     //   .service('wechatService')
     //   .qrCode()
-    return "success"
+    ctx.response.body = "success"
   }
 });
