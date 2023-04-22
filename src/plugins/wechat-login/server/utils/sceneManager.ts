@@ -46,8 +46,8 @@ export function getSceneToken(scene: string): string {
  * @param openId
  * @returns
  */
-export function setSceneToken(scene: string, openId: string): boolean{
-  if(!scene || !openId){
+export function setSceneToken(scene: string, token: string): boolean{
+  if(!scene || !token){
     return false
   }
   if(!sceneMap[scene]){
@@ -55,9 +55,9 @@ export function setSceneToken(scene: string, openId: string): boolean{
     return false
   }
   // TODO:接入生成jwt的服务
-  console.log("setSceneToken 成功", scene, openId);
+  console.log(`setSceneToken 成功 scene: ${scene}  token:${token}`);
 
-  sceneMap[scene].token = openId
+  sceneMap[scene].token = token
   return true
 }
 

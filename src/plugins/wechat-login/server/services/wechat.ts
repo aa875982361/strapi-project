@@ -155,12 +155,33 @@ class WechatServices {
     // 获取用户信息
     const { access_token, openid } = tokenData;
     console.log("openid", openid, tokenData)
-    const { data: userInfo } = await axios.request({
-      url: `https://api.weixin.qq.com/sns/userinfo?access_token=${access_token}&openid=${openid}&lang=zh_CN`,
-      httpsAgent,
-      proxy: false,
-      method: "GET"
-    })
+    return this.getUserTokenByOpenId(openid, access_token)
+  }
+
+  /**
+   * 获取用户信息
+   * @param openid openid
+   * @param access_token 接口凭证
+   */
+  async getUserTokenByOpenId(openid: string, access_token?: string): Promise<IAuthCallBack>{
+    if(!access_token){
+      // 如果没有access_token 则获取
+      const { appid, app_secret} = await this.getWeChatCredentials()
+      access_token = await getAccessToken(appid, app_secret)
+    }
+    let userInfo = {}
+    try {
+      // 获取用户信息
+      const { data: _userInfo } = await axios.request({
+        url: `https://api.weixin.qq.com/sns/userinfo?access_token=${access_token}&openid=${openid}&lang=zh_CN`,
+        httpsAgent,
+        proxy: false,
+        method: "GET"
+      })
+      userInfo = _userInfo
+    } catch (error) {
+      console.warn("获取用户信息失败 则使用默认对象", error)
+    }
     // 拿当前数据库里面 openid 对应的数据
     const user = await this.strapi.db.query('plugin::users-permissions.user').findOne({ where: { openid } });
     if (!user) {
@@ -286,7 +307,8 @@ class WechatServices {
           console.warn("没有用户 openid 或者没有 realScene", userOpenId, realScene)
         }else{
           // 设置场景值对应的openid
-          setSceneToken(realScene, userOpenId)
+          const { token } = await this.getUserTokenByOpenId(userOpenId)
+          setSceneToken(realScene, token)
         }
         break
     }
