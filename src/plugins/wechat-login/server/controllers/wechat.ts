@@ -99,8 +99,8 @@ export default ({ strapi }: { strapi: Strapi }) => ({
       console.warn("handleWechatMessage body not string");
       return
     }
-    const xmlData = handleXml2Object(ctx.request.body)
-    console.log("xmlData", xmlData)
+    const xmlData = await handleXml2Object(ctx.request.body)
+    console.log("xmlData.xml", xmlData?.xml)
 
     // const res = await strapi
     //   .plugin('wechat-login')
